@@ -96,6 +96,7 @@ export const viewport: Viewport = {
   ],
 };
 
+// Trigger Vercel rebuild
 export default function RootLayout({
   children,
 }: Readonly<{
