@@ -1,141 +1,45 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
+import { BlueGradientSeparator } from "@/components/blue-gradient-separator";
+import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
 
-// ShuffleGrid Component
-const shuffle = (array: (typeof squareData)[0][]) => {
-  let currentIndex = array.length,
-    randomIndex;
-
-  while (currentIndex != 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-
-  return array;
-};
-
-const squareData = [
+const alifeBenefits = [
   {
-    id: 1,
-    src: "https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    image: "/mdit.jpeg",
   },
   {
-    id: 2,
-    src: "https://images.unsplash.com/photo-1510925758641-869d353cecc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    image: "/mind.jpeg",
   },
   {
-    id: 3,
-    src: "https://images.unsplash.com/photo-1629901925121-8a141c2a42f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    image: "/concert.jpeg",
   },
   {
-    id: 4,
-    src: "https://images.unsplash.com/photo-1580238053495-b9720401fd45?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    image: "/event.jpeg",
+  },
+  // Duplicate for infinite scroll effect
+  {
+    image: "/mdit.jpeg",
   },
   {
-    id: 5,
-    src: "https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1325&q=80",
+    image: "/mind.jpeg",
   },
   {
-    id: 6,
-    src: "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    image: "/concert.jpeg",
   },
   {
-    id: 7,
-    src: "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-  },
-  {
-    id: 8,
-    src: "https://plus.unsplash.com/premium_photo-1671436824833-91c0741e89c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-  },
-  {
-    id: 9,
-    src: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-  },
-  {
-    id: 10,
-    src: "https://images.unsplash.com/photo-1610768764270-790fbec18178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-  },
-  {
-    id: 11,
-    src: "https://images.unsplash.com/photo-1507034589631-9433cc6bc453?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80",
-  },
-  {
-    id: 12,
-    src: "https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?ixlib=rb-4.0.3&ixid=MnwxMijA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=882&q=80",
-  },
-  {
-    id: 13,
-    src: "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  },
-  {
-    id: 14,
-    src: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80",
-  },
-  {
-    id: 15,
-    src: "https://images.unsplash.com/photo-1606244864456-8bee63fce472?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=681&q=80",
-  },
-  {
-    id: 16,
-    src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1820&q=80",
+    image: "/event.jpeg",
   },
 ];
 
-const generateSquares = () => {
-  return shuffle(squareData).map((sq) => (
-    <motion.div
-      key={sq.id}
-      layout
-      transition={{ duration: 1.5, type: "spring" }}
-      className="w-full h-full rounded-md overflow-hidden bg-muted aura-border hover:aura-glow transition-all duration-300"
-      style={{
-        backgroundImage: `url(${sq.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    ></motion.div>
-  ));
-};
-
-const ShuffleGrid = () => {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [squares, setSquares] = useState(generateSquares());
-
-  useEffect(() => {
-    shuffleSquares();
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  const shuffleSquares = () => {
-    setSquares(generateSquares());
-    timeoutRef.current = setTimeout(shuffleSquares, 3000);
-  };
-
-  return (
-    <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-2">
-      {squares.map((sq) => sq)}
-    </div>
-  );
-};
-
-export default function PerubahanSection() {
-  const sectionRef = useRef(null);
+export default function WhatIsAlifeSection() {
+  const videoRef = useRef(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: videoRef,
     offset: ["start end", "end start"]
   });
 
@@ -145,24 +49,20 @@ export default function PerubahanSection() {
   const z = useTransform(scrollYProgress, [0, 0.5], [-100, 0]);
 
   return (
-    <div className="relative overflow-hidden w-full min-h-screen">
-      {/* Background effects */}
-      <div className="absolute inset-0 gradient-aura-subtle"></div>
-      
-      <div className="relative z-10 min-h-screen flex flex-col justify-center py-16 md:py-24">
-        <div className="text-center mb-12">
-          <h2 className="text-xs sm:text-sm font-mono font-light text-primary uppercase tracking-[0.2em] opacity-80 mb-4">
-            Mereka Dulunya Sama Seperti Kamu
+    <div className="relative overflow-hidden w-full perspective-1000">
+      <div className="relative z-10 py-8">
+        <div className="text-center mb-8">
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-semibold mb-4">
+            We welcome you, to join our community!
           </h2>
-          <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-30 mx-auto mb-8"></div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight leading-tight tracking-tight text-foreground">
-            Tapi Sekarang Beda Jauh
-          </h1>
+          <div className="w-40 h-0.5 mx-auto bg-gradient-to-r from-blue-400 to-blue-600"></div>
         </div>
         
-        <section className="w-full px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto flex-1">
-          <motion.div
-            ref={sectionRef}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          {/* Main Video Display with subtle glow */}
+          <motion.div 
+            ref={videoRef}
+            className="relative"
             style={{ 
               perspective: 1000,
               opacity,
@@ -175,28 +75,111 @@ export default function PerubahanSection() {
             animate={{ opacity: 1, rotateX: 0, z: 0, scale: 1 }}
             transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
           >
-            <span className="block mb-4 text-xs md:text-sm font-mono font-light text-primary uppercase tracking-[0.2em] opacity-80">
-              Mereka Dulunya Sama Seperti Kamu
-            </span>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight leading-tight tracking-tight text-foreground mb-6">
-              Tapi Sekarang Beda Jauh
-            </h3>
-            <p className="text-base md:text-lg font-light text-muted-foreground leading-relaxed my-4 md:my-6">
-              Foto-foto di atas? Mereka semua Gen-Z seperti kamu yang dulu skeptis, ragu, dan mikir "ah pasti scam lagi". Tapi mereka nekat coba dan sekarang dalam 5 bulan udah bisa flexing 10 juta dari sistem bisnis yang gak pernah lo bayangin sebelumnya.
-            </p>
-            <p className="text-sm md:text-base font-light text-foreground/80 leading-relaxed mb-8">
-              Yang bikin beda, ini bukan jualan produk atau MLM. Ini sistem tersembunyi di industri asuransi yang udah terbukti bikin ribuan anak muda Indonesia mandiri finansial. Kamu mau jadi yang selanjutnya atau tetap nonton dari pinggir?
-            </p>
+            {/* Enhanced glow effects matching ref-per.tsx */}
+            <div className="absolute -inset-3 bg-gradient-to-r from-blue-500/30 via-blue-400/30 to-blue-300/30 rounded-xl blur-2xl animate-pulse"></div>
+            <div className="absolute -inset-3 bg-gradient-to-br from-blue-600/20 to-blue-400/20 rounded-xl blur-3xl animate-pulse delay-75"></div>
+            <div className="absolute -inset-3 bg-gradient-to-r from-blue-400/20 via-blue-500/20 to-blue-600/20 rounded-xl blur-2xl animate-pulse delay-150"></div>
+            
+            {/* Rotating gradient border */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-xl opacity-30 animate-spin-slow"></div>
+            
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-background/90 backdrop-blur-sm border border-white/10 shadow-2xl">
+              <iframe
+                src="https://youtube.com/embed/sTCqp3AOaVw"
+                title="Main Video"
+                frameBorder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full rounded-xl"
+              />
+            </div>
           </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            <ShuffleGrid />
+
+          {/* Gradient Separator */}
+          <div className="relative py-4">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50"></div>
+            </div>
+          </div>
+
+          {/* Infinite Horizontal Scroll Gallery */}
+          <div className="relative w-full overflow-hidden">
+            {/* Left mask/gradient */}
+            <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-background via-background/80 to-transparent pointer-events-none" />
+            
+            {/* Right mask/gradient */}
+            <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-background via-background/80 to-transparent pointer-events-none" />
+            
+            <div 
+              ref={scrollRef}
+              className="flex gap-4 overflow-x-auto scrollbar-hide py-4 w-full max-w-5xl mx-auto"
+            >
+              <div className="flex gap-4 animate-scroll">
+                {alifeBenefits.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="relative w-48 sm:w-56 aspect-square flex-shrink-0 overflow-hidden rounded-xl shadow-lg group"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    {/* Enhanced glow effects matching ref-per.tsx */}
+                    <div className="absolute -inset-3 bg-gradient-to-r from-blue-500/30 via-blue-400/30 to-blue-300/30 rounded-xl blur-2xl animate-pulse"></div>
+                    <div className="absolute -inset-3 bg-gradient-to-br from-blue-600/20 to-blue-400/20 rounded-xl blur-3xl animate-pulse delay-75"></div>
+                    <div className="absolute -inset-3 bg-gradient-to-r from-blue-400/20 via-blue-500/20 to-blue-600/20 rounded-xl blur-2xl animate-pulse delay-150"></div>
+                    
+                    {/* Rotating gradient border with increased opacity */}
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-xl opacity-30 animate-spin-slow"></div>
+                    
+                    <Image
+                      src={item.image}
+                      alt="Gallery Image"
+                      layout="fill"
+                      objectFit="cover"
+                      className="transition-transform duration-300 group-hover:scale-105 relative z-10"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Quote section with subtle glow */}
+          <motion.div className="relative mt-8 w-full max-w-3xl mx-auto">
+            {/* Enhanced quote glow effects */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none">
+              {/* Dark blue/purple gradients */}
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent blur-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-transparent blur-3xl"></div>
+              
+              {/* Animated pulse effects */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-800/10 via-purple-800/10 to-blue-800/10 rounded-xl blur-2xl animate-pulse"></div>
+              <div className="absolute -inset-4 bg-gradient-to-br from-purple-900/10 to-blue-800/10 rounded-xl blur-3xl animate-pulse delay-75"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-800/10 via-purple-900/10 to-blue-800/10 rounded-xl blur-2xl animate-pulse delay-150"></div>
+            </div>
+            
+            <p className="relative z-10 mb-8 text-sm tracking-tight text-muted-foreground md:text-base text-balance text-center">
+              <span className="text-white">
+                Bukan sekedar kerja, tapi panggilan hidup! bergabunglah dengan team aku dan kerja di tempat yang bikin kamu passionate, bareng komunitas yang vibesnya sama. Bersama saya dan Alife kamu akan dibimbing untuk membangun personal brand dan bisnis yang sustainable.
+              </span>
+            </p>
+
+            <div className="relative px-8 py-6">
+              <div className="absolute -top-4 -left-2 text-4xl text-blue-500/20 font-serif">&ldquo;</div>
+              <div className="absolute -bottom-4 -right-2 text-4xl text-blue-500/20 font-serif rotate-180">&rdquo;</div>
+              
+              <p className="text-sm tracking-tight md:text-base italic text-center font-light relative z-10">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                  Sekarang Saatnya kamu bersinar! Don&apos;t miss out! Aku percaya kamu pasti bisa achieve the same success as us!
+                </span>
+              </p>
+            </div>
           </motion.div>
-        </section>
+          <BlueGradientSeparator />
+        </div>
       </div>
     </div>
   );

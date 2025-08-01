@@ -1,182 +1,187 @@
 "use client";
 
-import { motion } from "framer-motion";
-import OverlappingImages from "@/components/overlapping-images";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { GradientBlur } from "@/components/ui/gradient-blur";
+import { useRef } from 'react';
 
 const transformations = [
   {
-    title: "Jual Tanpa Ngegombal",
-    description: "Lupain teknik jual kuno yang cringe. Lo bakal dapet sistem jual yang natural dan powerfull, bikin closing rate naik 300% tanpa keliatan kayak sales norak.",
+    title: "Kita Ajarkan Semua Skills & Techniques For Success!",
+    description: "Kamu akan mendapatkan akses eksklusif ke kelas training kita, yang terdiri dari lebih dari 1000+ anggota dan aku siap membantu kamu dalam setiap langkah bisnis!",
+    image: "/belajar.png",
   },
   {
-    title: "Dapetin Client Autopilot",
-    description: "Sistem rahasia dapetin client yang jalan sendiri. Lo gak perlu lagi kejar-kejaran prospek. Mereka yang bakal dateng sendiri dan minta dilayani.",
+    title: "More then a business. Private events, High-Value Connection and Resources",
+    description: "Kehidupan di luar bisnis ini akan super beneficial, karena kamu akan mendapatkan akses eksklusif ke komunitas kita, private event, high-value connection, dan resources yang bisa membantu kamu dalam bisnis dan hidup!",
+    image: "/link.png",
   },
   {
-    title: "Bikin Mereka Nagih",
-    description: "Rahasia bikin client ketagihan sama lo sampai mereka gak mau pindah ke yang lain. Repeat order dan referral bakal ngalir terus tanpa lo minta.",
+    title: "We Create Blueprint For Success! You Just Follow Need to Do!",
+    description: "Kamu gak perlu takut gagal karena bisnis ini sudah punya sistem yang terbukti sukses. Banyak yang sudah berhasil dan sekarang gilirannya kamu! This system works, yang penting kamu mau coba dan konsisten.",
+    image: "/cheers.jpeg",
   },
   {
-    title: "Ubah 'Gak' Jadi 'Iya'",
-    description: "Framework khusus ngatasin semua alasan penolakan client. Yang tadinya bilang 'mikir dulu' bakal langsung bilang 'gimana caranya mulai?'",
-  },
-  {
-    title: "10 Juta dalam 5 Bulan",
-    description: "Sistem financial planning yang udah terbukti bikin 2000+ member komunitas dapet 10-50 juta dalam 5 bulan pertama. Ini bukan teori, ini hasil nyata.",
+    title: "No Risk, But So Much To Gain!",
+    description: "Bisnis ini benar-benar minim resiko. Nothing to lose, everything to gain! Kamu cuma perlu berani coba, dan kamu akan lihat sendiri perubahan besar yang bisa terjadi dalam hidup kamu.",
+    image: "/gain.png",
   },
 ];
 
 function FeatureCard({ 
+  number, 
   title, 
   description, 
+  imageUrl, 
   isLast,
   index
 }: { 
+  number: string; 
   title: string; 
   description: string; 
+  imageUrl: string; 
   isLast: boolean;
   index: number;
 }) {
-  return (
-    <div 
-      className="relative overflow-hidden group rounded-2xl p-6 lg:p-8 mb-6 lg:mb-8 transition-all duration-500"
-      style={{
-        background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(0, 0, 0, 0.98) 50%, rgba(20, 5, 5, 0.95) 100%)',
-        border: '1px solid transparent',
-        backgroundImage: 'linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(0, 0, 0, 0.98) 50%, rgba(20, 5, 5, 0.95) 100%), linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1), rgba(239, 68, 68, 0.2))',
-        backgroundOrigin: 'border-box',
-        backgroundClip: 'padding-box, border-box',
-      }}
-    >
-      {/* Corner Gradient Overlays */}
-      <div className="absolute top-0 left-0 w-20 h-20 opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-           style={{
-             background: 'radial-gradient(circle at 0% 0%, rgba(239, 68, 68, 0.4) 0%, rgba(220, 38, 38, 0.2) 40%, transparent 70%)',
-           }}></div>
-      <div className="absolute top-0 right-0 w-20 h-20 opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-           style={{
-             background: 'radial-gradient(circle at 100% 0%, rgba(239, 68, 68, 0.4) 0%, rgba(220, 38, 38, 0.2) 40%, transparent 70%)',
-           }}></div>
-      <div className="absolute bottom-0 left-0 w-20 h-20 opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-           style={{
-             background: 'radial-gradient(circle at 0% 100%, rgba(239, 68, 68, 0.4) 0%, rgba(220, 38, 38, 0.2) 40%, transparent 70%)',
-           }}></div>
-      <div className="absolute bottom-0 right-0 w-20 h-20 opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-           style={{
-             background: 'radial-gradient(circle at 100% 100%, rgba(239, 68, 68, 0.4) 0%, rgba(220, 38, 38, 0.2) 40%, transparent 70%)',
-           }}></div>
-      
-      {/* Enhanced Corner Glow Effect */}
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-           style={{
-             boxShadow: 'inset 0 0 50px rgba(239, 68, 68, 0.1), 0 0 30px rgba(239, 68, 68, 0.05)',
-           }}></div>
-      {/* Enhanced Corner accent elements with gradient backgrounds */}
-      <div 
-        className="absolute top-2 left-2 w-10 h-10 border border-red-500/30 opacity-80 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 rounded"
-        style={{
-          background: 'radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.08) 60%, transparent 100%)',
-          animationDelay: '0.1s',
-        }}
-      >
-        <div className="absolute top-0 left-0 w-2 h-2 bg-red-500 opacity-60 rounded-full animate-pulse"></div>
-      </div>
-      
-      <div 
-        className="absolute top-2 right-2 w-10 h-10 border border-red-500/30 opacity-80 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 rounded"
-        style={{
-          background: 'radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.08) 60%, transparent 100%)',
-          animationDelay: '0.2s',
-        }}
-      >
-        <div className="absolute top-0 right-0 w-2 h-2 bg-red-500 opacity-60 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-      </div>
-      
-      <div 
-        className="absolute bottom-2 left-2 w-10 h-10 border border-red-500/30 opacity-80 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 rounded"
-        style={{
-          background: 'radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.08) 60%, transparent 100%)',
-          animationDelay: '0.3s',
-        }}
-      >
-        <div className="absolute bottom-0 left-0 w-2 h-2 bg-red-500 opacity-60 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-      </div>
-      
-      <div 
-        className="absolute bottom-2 right-2 w-10 h-10 border border-red-500/30 opacity-80 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 rounded"
-        style={{
-          background: 'radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.08) 60%, transparent 100%)',
-          animationDelay: '0.4s',
-        }}
-      >
-        <div className="absolute bottom-0 right-0 w-2 h-2 bg-red-500 opacity-60 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
-      </div>
-      
-      <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-12 relative z-10">
-        {/* Left side - Text content */}
-        <div className="w-full lg:w-3/5 order-2 lg:order-1">
-          <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extralight leading-tight tracking-tight mb-3 lg:mb-4 text-white">
-            {title}
-          </h3>
-          <p className="text-sm sm:text-base lg:text-lg font-light leading-relaxed text-white/70 max-w-xl">
-            {description}
-          </p>
-        </div>
+  const cardRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
 
-        {/* Right side - Overlapping Images */}
-        <div className="w-full lg:w-2/5 flex justify-center lg:justify-end order-1 lg:order-2">
-          <div className="w-full max-w-sm lg:max-w-md h-52 sm:h-64 lg:h-72">
-            <OverlappingImages solutionIndex={index} />
+  // Transform values for 3D effect
+  const rotateX = useTransform(scrollYProgress, [0, 0.5], [15, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+  const z = useTransform(scrollYProgress, [0, 0.5], [-100, 0]);
+
+  return (
+    <motion.div 
+      ref={cardRef}
+      className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 mb-16 lg:mb-24 relative"
+      style={{ 
+        perspective: 1000,
+        opacity,
+        scale,
+        rotateX,
+        z,
+        transformStyle: "preserve-3d",
+      }}
+      initial={{ 
+        opacity: 0.3,
+        rotateX: 15,
+        z: -100,
+        scale: 0.9
+      }}
+      animate={{ 
+        opacity: 1,
+        rotateX: 0,
+        z: 0,
+        scale: 1
+      }}
+      transition={{
+        duration: 0.8,
+        delay: index * 0.2,
+        type: "spring",
+        stiffness: 100
+      }}
+      viewport={{ once: true, margin: "-100px" }}
+    >
+      {/* Image container with radial effects */}
+      <div className="w-full lg:w-2/5">
+        <div className="relative">
+          {/* Radial blur effects behind image - Updated with darker colors */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-blue-800/30 via-purple-800/30 to-purple-900/30 rounded-xl blur-2xl animate-pulse"></div>
+          <div className="absolute -inset-4 bg-gradient-to-br from-purple-900/20 to-blue-800/20 rounded-xl blur-3xl animate-pulse delay-75"></div>
+          <div className="absolute -inset-4 bg-gradient-to-r from-blue-800/20 via-purple-900/20 to-blue-900/20 rounded-xl blur-2xl animate-pulse delay-150"></div>
+          
+          {/* Image container with darker gradient border */}
+          <div className="relative aspect-[4/3] w-full p-[2px] rounded-lg bg-gradient-to-br from-blue-900 via-purple-900 to-blue-950">
+            <div className="relative h-full w-full overflow-hidden rounded-lg">
+              <Image
+                src={imageUrl}
+                alt={title}
+                layout="fill"
+                objectFit="cover"
+                className="transition-transform duration-300 hover:scale-105"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Rest of the card content remains the same */}
+      <div className="hidden lg:block w-px h-full absolute left-[40%] top-0">
+        <div className="w-px h-full bg-gradient-to-b from-transparent via-gray-500/20 to-transparent 
+          [mask-image:linear-gradient(to_bottom,transparent_0%,black_25%,black_75%,transparent_100%)] 
+          [mask-size:1px_8px] [mask-repeat:repeat]">
+        </div>
+      </div>
+
+      <div className="w-full lg:w-3/5 text-left px-4 lg:px-8">
+        <div className="flex items-center gap-4 mb-4">
+          <span className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            {number}
+          </span>
+          <div className="h-px lg:h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 opacity-50"></div>
+        </div>
+        <h3 className="text-xl lg:text-2xl xl:text-3xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          {title}
+        </h3>
+        <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      {!isLast && (
+        <div className="w-full h-px absolute -bottom-8 lg:-bottom-12 left-0">
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-500/20 to-transparent"></div>
+        </div>
+      )}
+    </motion.div>
   );
 }
 
 export default function SolutionSection() {
   return (
-    <div className="relative w-full bg-black">
-      <div className="relative z-10 py-20 lg:py-28">
+    <div className="relative overflow-hidden w-full perspective-1000">
+      <div className="relative z-10 py-16 lg:py-24">
         {/* Section Header */}
-        <div className="text-left mb-12 lg:mb-16 px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-16 lg:mb-24 px-4">
           <motion.h2 
-            className="text-2xl lg:text-3xl xl:text-4xl font-extralight leading-tight tracking-tight mb-4 text-white"
+            className="text-2xl lg:text-2xl xl:text-3xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Ini Dia Rahasianya
+            Kenapa pilih ikut bisnis Alife?
           </motion.h2>
+          <div className="w-24 lg:w-32 h-0.5 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mb-6"></div>
           <motion.p
-            className="text-sm lg:text-base font-light leading-relaxed text-white/70 max-w-2xl"
+            className="text-sm tracking-tight text-muted-foreground md:text-base text-balance text-center max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Kenapa mereka bisa 10 juta dalam 5 bulan sementara lo masih stuck? Ini sistem tersembunyi yang bikin ribuan Gen-Z Indonesia berhasil financial freedom di usia muda.
+            Kami pengen open door untuk kamu, dan buat kamu realise what is possible with Alife!
           </motion.p>
         </div>
         
-        {/* Features List with more generous spacing */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-6 lg:space-y-8">
+        {/* Features Grid */}
+        <div className="max-w-7xl mx-auto px-4 lg:px-8">
           {transformations.map((feature, index) => (
-            <motion.div
+            <FeatureCard 
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              <FeatureCard 
-                title={feature.title} 
-                description={feature.description} 
-                isLast={index === transformations.length - 1}
-                index={index}
-              />
-            </motion.div>
+              number={(index + 1).toString().padStart(2, '0')} 
+              title={feature.title} 
+              description={feature.description} 
+              imageUrl={feature.image} 
+              isLast={index === transformations.length - 1}
+              index={index}
+            />
           ))}
         </div>
       </div>

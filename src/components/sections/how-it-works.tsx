@@ -1,108 +1,65 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/card-1';
-import { cn } from '@/lib/utils';
-import { MousePointer, Phone, Users, LucideIcon } from 'lucide-react';
+import Features from "@/components/features-vertical";
+import Section from "@/components/section";
+import { ClipboardEdit, PhoneCall, Calendar } from "lucide-react";
+import { BlueGradientSeparator } from "@/components/blue-gradient-separator";
+import Ripple from "@/components/ui/ripple";
 
-const stepsData = [
+const data = [
   {
-    icon: MousePointer,
-    title: "1. Klik, Isi, Selesai",
-    description: "Klik tombol hero, isi form simpel dengan info lo. 2 menit doang udah selesai. Ini langkah pertama lo dapetin sistem 10 juta dalam 5 bulan yang udah bikin ribuan Gen-Z sukses.",
-    imageSrc: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&fit=crop"
+    id: 1,
+    title: "1. Isi Formulir Singkat",
+    content: "Isi dengan data diri kamu. Process ini quick and simple, hanya butuh beberapa minutes saja.",
+    image: "/join.png",
+    icon: <ClipboardEdit className="w-8 h-8 sm:w-6 sm:h-6 text-primary" />,
+    imageClassName: "aspect-square w-full h-full object-cover",
   },
   {
-    icon: Phone,
-    title: "2. Kami yang Hubungin Lo",
-    description: "Leader kami langsung hubungin lo dalam 24 jam. Bukan buat jual-jualan, tapi buat mastiin lo cocok sama sistem ini. Kalo match, lo masuk. Kalo enggak, ya udah.",
-    imageSrc: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&fit=crop"
+    id: 2,
+    title: "2. Aku akan Hubungi Kamu Personally",
+    content: "Aku akan review informasi kamu dan contact within 15 menit untuk discuss lebih lanjut.",
+    image: "/contact.png", 
+    icon: <PhoneCall className="w-8 h-8 sm:w-6 sm:h-6 text-primary" />,
+    imageClassName: "aspect-square w-full h-full object-cover",
   },
   {
-    icon: Users,
-    title: "3. Training Langsung Action",
-    description: "Welcome to the club! Lo bakal ketemu sama komunitas yang udah proven berhasil. Training pertama langsung praktek, bukan teori doang. Dalam minggu pertama udah keliatan hasilnya.",
-    imageSrc: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=800&q=80&fit=crop"
-  }
+    id: 3,
+    title: "3. Undangan Event Pertama Kamu",
+    content: "Setelah ngobrol dengan aku, kamu akan diundang ke first event kita, dimana kamu bisa mulai networking and learning.",
+    image: "/first.png",
+    icon: <Calendar className="w-8 h-8 sm:w-6 sm:h-6 text-primary" />,
+    imageClassName: "aspect-square w-full h-full object-cover",
+  },
 ];
 
 export default function HowItWorks() {
   return (
-    <section className="bg-black py-16 md:py-32">
-      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-2xl lg:text-3xl xl:text-4xl font-extralight leading-tight tracking-tight mb-4 text-white">
-            Caranya Gampang Banget
-          </h2>
-          <p className="text-sm lg:text-base font-light leading-relaxed text-white/70 max-w-2xl mx-auto">
-            3 langkah doang, lo udah bisa mulai dapetin 10 juta. Gak ribet, gak lama, langsung action.
-          </p>
-        </div>
+    <>
+      <BlueGradientSeparator />
+      <Section className="py-1 relative overflow-hidden">
+        <Ripple 
+          className="absolute right-[35%] md:right-[0%] top-[-100%] md:bottom-[-3%] transform translate-x-1/4 translate-y-1/4" 
+          mainCircleSize={100}
+          numCircles={5}
+        />
+        
+        <div className="relative z-10">
+          <div className="text-center mb-2">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-1">Cara Bergabung</h2>
+            
+            <hr className="w-20 md:w-24 mx-auto border-t-2 border-primary mb-1" />
+          </div>
+          <div className="lg:overflow-x-visible">
+            <Features 
+              data={data} 
+              customTitleClassName="text-left text-xl sm:text-lg md:text-xl lg:text-2xl font-bold mb-2 bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 text-transparent bg-clip-text"
+              customContentClassName="text-lg sm:text-base md:text-lg text-muted-foreground"
 
-        {/* Steps Grid */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          {stepsData.map((step, index) => (
-            <StepCard
-              key={index}
-              icon={step.icon}
-              title={step.title}
-              description={step.description}
-              imageSrc={step.imageSrc}
             />
-          ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </Section>
+    </>
   );
 }
-
-interface StepCardProps {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  imageSrc: string;
-}
-
-const StepCard = ({ icon: Icon, title, description, imageSrc }: StepCardProps) => (
-  <Card className="bg-black border-red-500/20 hover:border-red-500/30 transition-all duration-300 relative group">
-    {/* Corner accent elements - matching digital-seranity.tsx */}
-    <div className="absolute top-2 left-2 w-10 h-10 border border-red-500/20 bg-red-500/5 opacity-100 transition-all duration-300 group-hover:opacity-75">
-      <div className="absolute top-0 left-0 w-2 h-2 bg-red-500 opacity-30 rounded-full"></div>
-    </div>
-    
-    <div className="absolute top-2 right-2 w-10 h-10 border border-red-500/20 bg-red-500/5 opacity-100 transition-all duration-300 group-hover:opacity-75">
-      <div className="absolute top-0 right-0 w-2 h-2 bg-red-500 opacity-30 rounded-full"></div>
-    </div>
-    
-    <div className="absolute bottom-2 left-2 w-10 h-10 border border-red-500/20 bg-red-500/5 opacity-100 transition-all duration-300 group-hover:opacity-75">
-      <div className="absolute bottom-0 left-0 w-2 h-2 bg-red-500 opacity-30 rounded-full"></div>
-    </div>
-    
-    <div className="absolute bottom-2 right-2 w-10 h-10 border border-red-500/20 bg-red-500/5 opacity-100 transition-all duration-300 group-hover:opacity-75">
-      <div className="absolute bottom-0 right-0 w-2 h-2 bg-red-500 opacity-30 rounded-full"></div>
-    </div>
-
-    <CardHeader>
-      <div className="flex items-center gap-2 text-white/60 font-mono font-light mb-2 uppercase tracking-[0.2em] opacity-80">
-        <Icon className="size-4" />
-        Langkah {title.charAt(0)}
-      </div>
-      <CardTitle className="text-xl font-extralight leading-tight tracking-tight text-white">
-        {title}
-      </CardTitle>
-      <CardDescription className="text-sm font-light leading-relaxed text-white/60">
-        {description}
-      </CardDescription>
-    </CardHeader>
-
-    <CardContent>
-      <div className="aspect-[4/3] rounded-lg overflow-hidden bg-white/5">
-        <img
-          src={imageSrc}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-    </CardContent>
-  </Card>
-);

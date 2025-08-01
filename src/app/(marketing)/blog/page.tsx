@@ -12,9 +12,7 @@ export default async function Blog() {
   const allPosts = await getBlogPosts();
 
   const articles = await Promise.all(
-    allPosts
-      .filter(post => post && post.publishedAt) // Filter out invalid posts
-      .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    allPosts.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
   );
 
   return (

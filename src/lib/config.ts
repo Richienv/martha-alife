@@ -1,4 +1,4 @@
-import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaTwitter, FaFacebook } from "react-icons/fa";
 
 interface SiteConfig {
   name: string;
@@ -14,52 +14,33 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Template Pro",
-  description: "Premium Business Templates & Solutions",
-  url: "https://templatepro.com",
-  keywords: ["business", "template", "professional", "premium", "solutions", "corporate"],
+  name: "Alife",
+  description: "Your Life, Your Way",
+  url: "https://alifebyvision.com",
+  keywords: ["life", "lifestyle", "personal development", "wellness"],
   header: [
     // Add your header items here
     // Example:
     // { label: 'Home', href: '/' },
-    // { trigger: 'Services', content: { /* ... */ } },
+    // { trigger: 'Products', content: { /* ... */ } },
   ],
   footer: [
     {
       title: "Company",
       links: [
         { text: "About Us", href: "/about" },
-        { text: "Services", href: "/services" },
-        { text: "Portfolio", href: "/portfolio" },
-        { text: "Contact", href: "/contact" },
+        { text: "Careers", href: "/careers" },
+        // ... other links
       ],
     },
-    {
-      title: "Solutions",
-      links: [
-        { text: "Business Templates", href: "/templates" },
-        { text: "Custom Development", href: "/development" },
-        { text: "Consulting", href: "/consulting" },
-        { text: "Support", href: "/support" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { text: "Blog", href: "/blog" },
-        { text: "Documentation", href: "/docs" },
-        { text: "FAQ", href: "/faq" },
-        { text: "Community", href: "/community" },
-      ],
-    },
+    // ... other footer sections
   ],
   socials: [
-    { icon: FaTwitter, href: "https://twitter.com/templatepro" },
-    { icon: FaFacebook, href: "https://facebook.com/templatepro" },
-    { icon: FaInstagram, href: "https://instagram.com/templatepro" },
-    { icon: FaLinkedin, href: "https://linkedin.com/company/templatepro" },
+    { icon: FaTwitter, href: "https://twitter.com/alife" },
+    { icon: FaFacebook, href: "https://facebook.com/alife" },
+    // ... other social media links
   ],
   links: {
-    email: "hello@templatepro.com"
+    email: "contact@alifebyvision.com"
   },
 };
