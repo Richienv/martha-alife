@@ -172,7 +172,7 @@ const AboutMeSection = () => {
                   Kamu pasti mikir,
                 </p>
                 <p className="text-sm lg:text-base font-light leading-relaxed">
-                  "Siapa sih lo yang berani ngomong bisa bantuin gue raih 10 juta dalam 5 bulan? Pasti scam lagi kan?"
+                  &ldquo;Siapa sih lo yang berani ngomong bisa bantuin gue raih 10 juta dalam 5 bulan? Pasti scam lagi kan?&rdquo;
                 </p>
                 <p className="text-sm lg:text-base font-light leading-relaxed">
                   Gue paham banget skeptisisme lo. Dulu gue juga gitu kok. Dari yang awalnya pegawai biasa dengan gaji pas-pasan, sampai akhirnya nemuin sistem bisnis tersembunyi di industri asuransi yang ngubah hidup gue total.
@@ -184,7 +184,7 @@ const AboutMeSection = () => {
               
               <div className="pt-6">
                 <span className="text-lg md:text-xl font-light text-red-300 font-mono tracking-wide">
-                  "Masih ragu? Boleh. Tapi jangan sampe nyesel pas liat temen-temen lo udah duluan berhasil."
+                  &ldquo;Masih ragu? Boleh. Tapi jangan sampe nyesel pas liat temen-temen lo udah duluan berhasil.&rdquo;
                 </span>
               </div>
             </div>
@@ -213,7 +213,7 @@ const AboutMeSection = () => {
           <div className="mt-16 text-center">
             <div className="h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent my-8"></div>
             <p className="text-lg md:text-xl font-light text-red-300 max-w-3xl mx-auto font-mono tracking-wide">
-              "Sistem ini bukan magic. Ini tentang konsistensi, dedikasi, dan mau keluar dari comfort zone. Kalo lo siap, gue siap guide lo sampai berhasil."
+              &ldquo;Sistem ini bukan magic. Ini tentang konsistensi, dedikasi, dan mau keluar dari comfort zone. Kalo lo siap, gue siap guide lo sampai berhasil.&rdquo;
             </p>
             <div className="h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent my-8"></div>
           </div>
@@ -294,7 +294,7 @@ const AboutMeSection = () => {
                   <span className="word-animate" data-delay="2000">mikir,</span>
                 </p>
                 <p className="text-sm lg:text-base font-light leading-relaxed opacity-0" style={{ animation: 'word-appear 0.8s ease-out forwards', animationDelay: '2.4s' }}>
-                  "Siapa sih lo yang berani ngomong bisa bantuin gue raih 10 juta dalam 5 bulan? Pasti scam lagi kan?"
+                  &ldquo;Siapa sih lo yang berani ngomong bisa bantuin gue raih 10 juta dalam 5 bulan? Pasti scam lagi kan?&rdquo;
                 </p>
                 <p className="text-sm lg:text-base font-light leading-relaxed opacity-0" style={{ animation: 'word-appear 0.8s ease-out forwards', animationDelay: '2.8s' }}>
                   Gue paham banget skeptisisme lo. Dulu gue juga gitu kok. Dari yang awalnya pegawai biasa dengan gaji pas-pasan, sampai akhirnya nemuin sistem bisnis tersembunyi di industri asuransi yang ngubah hidup gue total.
@@ -306,7 +306,7 @@ const AboutMeSection = () => {
               
               <div className="pt-6 opacity-0" style={{ animation: 'word-appear 0.8s ease-out forwards', animationDelay: '3.6s' }}>
                 <span className="text-lg md:text-xl font-light text-red-300 font-mono tracking-wide">
-                  "Masih ragu? Boleh. Tapi jangan sampe nyesel pas liat temen-temen lo udah duluan berhasil."
+                  &ldquo;Masih ragu? Boleh. Tapi jangan sampe nyesel pas liat temen-temen lo udah duluan berhasil.&rdquo;
                 </span>
               </div>
             </div>
@@ -339,7 +339,7 @@ const AboutMeSection = () => {
           <div className="mt-16 text-center opacity-0" style={{ animation: 'word-appear 0.8s ease-out forwards', animationDelay: '4s' }}>
             <div className="h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent my-8"></div>
             <p className="text-lg md:text-xl font-light text-red-300 max-w-3xl mx-auto font-mono tracking-wide">
-              "Sistem ini bukan magic. Ini tentang konsistensi, dedikasi, dan mau keluar dari comfort zone. Kalo lo siap, gue siap guide lo sampai berhasil."
+              &ldquo;Sistem ini bukan magic. Ini tentang konsistensi, dedikasi, dan mau keluar dari comfort zone. Kalo lo siap, gue siap guide lo sampai berhasil.&rdquo;
             </p>
             <div className="h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent my-8"></div>
           </div>
